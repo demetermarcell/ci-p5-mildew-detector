@@ -7,6 +7,14 @@ __pycache__/
 node_modules/
 .github/
 cloudinary_python.txt
-kaggle.json
+
+# Ignore virtual environment folder:
 mildew-env/
-CI_README.md
+
+# Ignore kaggle API key file:
+kaggle.json
+
+# Ignore train and validation folders:
+/inputs/mildew-dataset/cherry-leaves/train
+/inputs/mildew-dataset/cherry-leaves/validation
+
