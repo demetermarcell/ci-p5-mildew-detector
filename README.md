@@ -51,6 +51,29 @@ Images of cherry leaves infected with powdery mildew will show distinct visual c
 2. Predictive Capability Hypothesis
 A binary image classification model trained on labeled cherry leaf images can accurately distinguish between healthy and infected leaves, achieving ≥97% accuracy on a held-out test set.
 
+
+1. Validation of Visual Difference Hypothesis
+
+To validate the first hypothesis, a computational process was applied to load, resize, and normalize leaf images, enabling consistent pixel-level comparison across samples. Mean and average representations were then generated for both healthy and infected classes to highlight overall texture and color patterns.
+When processing 30 images per label, execution took 0.6 s; increasing to 100 and 200 images raised computation time to 8.0 s and 38.4 s, respectively. The results confirm a clear visual distinction between infected and healthy leaves. Infected samples exhibit more surface irregularities and discoloration. However, as the number of averaged images increases, the visual contrast between the mean representations diminishes, making differences harder for the human eye to detect due to pixel-level smoothing.
+The generated visualizations are consistent with prior research on the visual differences between healthy and infected cherry leaves, and they further demonstrate that these differences can be quantified and validated computationally, not just observed visually.
+
+Difference between average healthy and average infected leaves:
+![difference_healthy_infected](outputs/v1/avg_diff.png)
+
+Average and Variability (v1, Sample size 30)
+![v1_avg_var_h](outputs/v1/avg_var_healthy.png)
+![v1_avg_var_i](outputs/v1/avg_var_powdery_mildew.png)
+
+Average and Variability (v2,Sample size 200)
+![v1_avg_var_h](outputs/v2/avg_var_healthy.png)
+![v1_avg_var_i](outputs/v2/avg_var_powdery_mildew.png)
+
+Average and Variability (v3, Sample size 100)
+![v1_avg_var_h](outputs/v3/avg_var_healthy.png)
+![v1_avg_var_i](outputs/v3/avg_var_powdery_mildew.png)
+
+
 ## Rationale
 
 ## ML Business Case
