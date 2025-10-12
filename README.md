@@ -74,9 +74,39 @@ Average and Variability (v3, Sample size 100)
 ![v1_avg_var_i](outputs/v3/avg_var_powdery_mildew.png)
 
 
-## Rationale
+## Rationale & ML Business Case
 
-## ML Business Case
+The earlier visual analysis confirmed measurable differences in color, texture, and pattern distribution between healthy and infected leaves. This provided empirical support for building a binary image classifier as a reliable detection method.
+Convolutional Neural Networks (CNNs) were selected as the primary modeling technique because they are highly effective at learning spatial hierarchies in images without requiring manual feature extraction. This image-based machine learning approach directly addresses Business Requirement 2, ensuring that the solution is both scientifically justified and aligned with the client’s objectives.
+By implementing an automated image-based detection system, the client can rapidly identify infected leaves early in the production process, improving response time and minimizing losses.
+The model aims for ≥97% accuracy, ensuring reliable predictions that can be integrated into routine field inspections or mobile applications. Beyond operational efficiency, the approach also enables data-driven crop-health monitoring — creating a scalable, low-cost diagnostic tool that supports sustainable agriculture and reduces dependency on manual labor.
+
+### Model Creation and Selection
+Building upon the foundation of the Code Institute’s Malaria Detector (a similar binary image classifier), the initial Mildew Detector model adopted a TensorFlow Sequential CNN architecture consisting of three convolutional blocks (Conv2D + MaxPooling2D), followed by Flatten → Dense(128, ReLU) → Dropout → Dense(1, Sigmoid) layers.
+Each convolutional block progressively extracts higher-level spatial features — from simple edges and color gradients in the first layer to complex mildew texture patterns in the deeper layers — while MaxPooling reduces spatial dimensions and overfitting risk. The final Dense and Dropout layers transform these learned features into a robust binary decision boundary.
+
+To optimize performance, the following hyperparameters were selected:
+
+- Batch size (16 vs 32): to balance convergence stability and training speed.
+- Dropout (0.5 vs 0.3): to control overfitting while maintaining model capacity.
+- Kernel size (3×3 vs 5×5): to compare local vs broader texture capture.
+- Activation (ReLU vs ELU): While ReLU outputs zero for negative inputs—risking inactive (“dead”) neurons—ELU allows small negative values, preserving gradient flow. This smoother behavior was expected to improve convergence stability and overall model performance compared to ReLU.
+- Optimizer (Adam vs Adamax): evaluated for stability and adaptability to varying gradient scales.
+
+Model development followed a three-stage experimental process:
+
+- Stage 1: Train all 16 hyperparameter combinations with batch size 16 for rapid iteration.
+- Stage 2: Retrain the top 4 configurations using batch size 32 for refined learning.
+- Stage 3: Consolidate findings and reproduce the best model in a dedicated final notebook for
+
+#### Step 1 Results Conclusion
+- Trained and validated 16 configurations in 67.4 minutes on a modern workstation.
+- Planned to advance the top 4, but because the 4th and 5th models were essentially tied, we will retrain the top 5 at batch size 32.
+- Top model achieved 100% across all reported metrics on the train/validation sets. Config: bs=16, dropout=0.3, kernel=5, activation=relu, optimizer=adamax, epochs=10.
+- Runner-up was nearly identical in performance; key differences vs. #1: kernel 3 (vs 5), activation elu (vs relu), epochs=11 (vs 10).
+- Within the top 5, Adamax consistently outperformed Adam; notably, the lowest performers used Adam.
+- No other single hyperparameter (dropout rate, kernel size, activation) showed clear, universal dominance beyond the specific winning combinations above.
+
 
 ## Dashboard Design
 - Streamlit App Interface
@@ -111,5 +141,30 @@ Link to project board
 ## Credits
 ### Content
 - CRISP-DM - [LINK](https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining)
-- Cherry Mildew - [LINK](https://hortsense.cahnrs.wsu.edu/fact-sheet/cherry-powdery-mildew/), [LINK](https://www.canr.msu.edu/ipm/diseases/powdery_mildew_of_cherry#gallery)m [LINK](https://en.wikipedia.org/wiki/Erysiphaceae)
+- Cherry Mildew - [LINK](https://hortsense.cahnrs.wsu.edu/fact-sheet/cherry-powdery-mildew/), [LINK](https://www.canr.msu.edu/ipm/diseases/powdery_mildew_of_cherry#gallery), [LINK](https://en.wikipedia.org/wiki/Erysiphaceae)
+- Convolutional Neural Networks [LINK](https://en.wikipedia.org/wiki/Convolutional_neural_network), [LINK](https://www.ibm.com/think/topics/convolutional-neural-networks)
 
+Tensor Flow:
+Image Classification: https://www.tensorflow.org/tutorials/images/classification
+Activation Function:
+ELU: https://www.tensorflow.org/api_docs/python/tf/keras/activations/elu
+ReLU: https://www.tensorflow.org/api_docs/python/tf/keras/activations/relu
+Sigmoid: https://www.tensorflow.org/api_docs/python/tf/keras/activations/sigmoid
+
+Losses:
+Binary Crossentropy: https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy
+
+Optimizers:
+Adam: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam
+Adamax: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax
+
+Callbacks:
+https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping
+https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/ModelCheckpoint
+
+
+Code Institute Malaria Detector Walk-through Project Sample was used for:
+- Data Collection.ipynb
+- Data Visualization.ipynb
+- Model Creation - basic model
+- Streamlit app files / dashboard structure
