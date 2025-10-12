@@ -1,19 +1,58 @@
-# Data & artifacts
+# ============================
+# .slugignore
+# For Heroku deployment of Mildew Detector
+# ============================
+
+# --- Data and model artifacts (not needed for runtime) ---
 inputs/
 outputs/
 reports/
+models/
+*.h5
+*.keras
+*.tflite
+*.joblib
+*.pkl
+*.csv
+
+# --- Jupyter notebooks and experiments ---
 notebooks/
 jupyter_notebooks/
 **/.ipynb_checkpoints/
+*.ipynb
 
-# Dev-only
-docs/
+# --- Local and environment files ---
+.env
+*.pyc
+__pycache__/
+venv/
+.venv/
+mildew-env/
+*.log
+*.DS_Store
+
+# --- Development and docs ---
 tests/
-*.md
-*.csv
+docs/
+README.md
+CI_README.md
+LICENSE
+kaggle.json
+
+# --- Images and plots ---
 *.png
 *.jpg
 *.jpeg
+*.gif
 
-# Misc
-kaggle.json
+# --- Git and IDE metadata ---
+.git/
+.gitignore
+.idea/
+.vscode/
+
+# --- Other unnecessary files ---
+*.zip
+*.tar
+*.gz
+*.bak
