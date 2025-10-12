@@ -171,43 +171,88 @@ The Navigation has the following options:
  5. Evaluation
  6. Deployment
 
-Link to project board
+[Link](https://github.com/users/demetermarcell/projects/7) to project board
 
 
 ## Bugs
 - Although a random seed was defined in the notebooks, it was inadvertently omitted from the model’s implementation due to a minor oversight. This issue was identified during the final validation phase. To ensure the best-performing model was deployed, the production version was manually replaced with the previously trained model that achieved superior validation results.
+- Deployment Issue: Deployment to Heroku failed because the compiled slug exceeded Heroku’s 500 MB limit (actual size: 741.7 MB). Multiple attempts were made to reduce the size by converting the model to TensorFlow Lite, but the conversion was unsuccessful. Due to time constraints, deployment could not be completed. A bug has been logged on the project board; the application runs successfully in the local environment.
 
 ## Deployment
+- The repository is stored on my personal GitHub account as a public repository.
+- The app was deployed to Heroku as per steps below:
+    - Login to personal Heroku account.
+    - Select New -> Create new app from top right segment of the screen.
+    - Set unique name to the app and select location, then hit Create app.
+    - Navigate to the Deploy section from the top navigation.
+    - Select GitHub as your Deployment Method.
+    - Set the name of your repository and hit Search
+    - Connect your repository to the Heroku app.
+    - On the "Manual deploy" section of the screen, select the correct branch and hit "Deploy Branch"
+    - Go to Resources → Eco Dynos and confirm a web dyno is present (from your Procfile command). You should not see any worker dynos for this app.
+    - Resources/ Add-on Services should be empty
+    - Once the build finishes, click Open app.
+    
 
 ## Main Data Analysis and Machine Learning Libraries
+This project relies on a small but powerful set of open-source Python libraries that make data analysis, visualization, and machine learning straightforward and reproducible.
+
+- NumPy – Provides the numerical backbone of the project. It’s used for handling image arrays, performing matrix operations, and ensuring efficient computations throughout the model pipeline.
+
+- Pandas – Handles structured data such as model results, metrics, and experiment logs. It makes it easy to organize, summarize, and export data for further analysis or reporting.
+
+- Pillow (PIL) – Used for loading, resizing, and basic manipulation of leaf images before they are passed to the model for prediction.
+
+- TensorFlow / Keras – The core machine learning framework powering the Mildew Detector. TensorFlow manages model training and inference, while Keras provides a simple, high-level interface to define and fine-tune the convolutional neural network used to classify healthy and infected cherry leaves.
+
+- Streamlit – The framework used to build and deploy the interactive dashboard. It allows users to upload leaf images, visualize predictions, and explore results directly from a web interface without needing any coding knowledge.
 
 ## Credits
-### Content
-- CRISP-DM - [LINK](https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining)
-- Cherry Mildew - [LINK](https://hortsense.cahnrs.wsu.edu/fact-sheet/cherry-powdery-mildew/), [LINK](https://www.canr.msu.edu/ipm/diseases/powdery_mildew_of_cherry#gallery), [LINK](https://en.wikipedia.org/wiki/Erysiphaceae)
-- Convolutional Neural Networks [LINK](https://en.wikipedia.org/wiki/Convolutional_neural_network), [LINK](https://www.ibm.com/think/topics/convolutional-neural-networks)
 
-Tensor Flow:
-Image Classification: https://www.tensorflow.org/tutorials/images/classification
-Activation Function:
-ELU: https://www.tensorflow.org/api_docs/python/tf/keras/activations/elu
-ReLU: https://www.tensorflow.org/api_docs/python/tf/keras/activations/relu
-Sigmoid: https://www.tensorflow.org/api_docs/python/tf/keras/activations/sigmoid
+### Content & Background
+- **CRISP–DM:** [Wikipedia](https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining)
+- **Cherry powdery mildew:**  
+  - Washington State Univ. Hortsense: [Link](https://hortsense.cahnrs.wsu.edu/fact-sheet/cherry-powdery-mildew/)  
+  - MSU Integrated Pest Management: [Link](https://www.canr.msu.edu/ipm/diseases/powdery_mildew_of_cherry#gallery)  
+  - Erysiphaceae (family): [Wikipedia](https://en.wikipedia.org/wiki/Erysiphaceae)
+- **Convolutional Neural Networks:**  
+  - [Wikipedia](https://en.wikipedia.org/wiki/Convolutional_neural_network)  
+  - IBM Think: [Overview](https://www.ibm.com/think/topics/convolutional-neural-networks)
 
-Losses:
-Binary Crossentropy: https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy
+### Dataset
+- **Cherry Leaves (Healthy vs Powdery Mildew)** — Code Institute dataset on Kaggle:  
+  [https://www.kaggle.com/datasets/codeinstitute/cherry-leaves](https://www.kaggle.com/datasets/codeinstitute/cherry-leaves)
 
-Optimizers:
-Adam: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam
-Adamax: https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax
+### Frameworks, APIs & Key References
+- **TensorFlow / Keras**  
+  - Image Classification Tutorial: [tensorflow.org/tutorials/images/classification](https://www.tensorflow.org/tutorials/images/classification)  
+  - Activations: [ELU](https://www.tensorflow.org/api_docs/python/tf/keras/activations/elu) · [ReLU](https://www.tensorflow.org/api_docs/python/tf/keras/activations/relu) · [Sigmoid](https://www.tensorflow.org/api_docs/python/tf/keras/activations/sigmoid)  
+  - Losses: [BinaryCrossentropy](https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy)  
+  - Optimizers: [Adam](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam) · [Adamax](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax)  
+  - Callbacks: [EarlyStopping](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping) · [ModelCheckpoint](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/ModelCheckpoint)
+- **Streamlit**  
+  - Docs: [docs.streamlit.io](https://docs.streamlit.io/)
+- **Plotly Express**  
+  - Docs: [plotly.com/python/plotly-express](https://plotly.com/python/plotly-express/)
+- **Matplotlib**  
+  - Docs: [matplotlib.org/stable](https://matplotlib.org/stable/)
+- **Pillow (PIL)**  
+  - Docs: [pillow.readthedocs.io](https://pillow.readthedocs.io/)
+- **NumPy / pandas / joblib**  
+  - NumPy: [numpy.org/doc](https://numpy.org/doc/) · pandas: [pandas.pydata.org/docs](https://pandas.pydata.org/docs/) · joblib: [joblib.readthedocs.io](https://joblib.readthedocs.io/)
 
-Callbacks:
-https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping
-https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/ModelCheckpoint
+### Code Sources & Inspiration
+- **Code Institute — Malaria Detector Walkthrough** (used as a starting point for):  
+  - *Data Collection.ipynb*  
+  - *Data Visualization.ipynb*  
+  - *Model Creation* (baseline Sequential CNN)  
+  - *Streamlit app structure / multi-page dashboard*
+- **Code Institute — Predictive Analytics & Machine Learning Curriculum**
 
+### Tools & Services
+- **Kaggle** — dataset hosting & downloads  
+- **Heroku** — app deployment (CPU)  
+- **GitHub** — repository hosting & version control
 
-Code Institute Malaria Detector Walk-through Project Sample was used for:
-- Data Collection.ipynb
-- Data Visualization.ipynb
-- Model Creation - basic model
-- Streamlit app files / dashboard structure
+### Acknowledgements
+- **ChatGPT** — assisted with documentation phrasing, code scaffolding, and debugging suggestions.
