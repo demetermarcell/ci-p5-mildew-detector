@@ -1,0 +1,19 @@
+# Data & artifacts
+inputs/
+outputs/
+reports/
+notebooks/
+jupyter_notebooks/
+**/.ipynb_checkpoints/
+
+# Dev-only
+docs/
+tests/
+*.md
+*.csv
+*.png
+*.jpg
+*.jpeg
+
+# Misc
+kaggle.json
