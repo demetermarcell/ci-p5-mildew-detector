@@ -1,12 +1,19 @@
 # ============================
 # requirements.txt
-# Minimal runtime deps for Streamlit + TFLite inference
+# Streamlit Mildew Detector - lightweight runtime build
 # ============================
 
 streamlit==1.40.2
-tflite-runtime==2.14.0
-numpy==1.26.1
-pandas==2.1.1
-Pillow==10.0.1
-requests>=2.31.0
+plotly==5.17.0
 seaborn==0.13.2
+matplotlib==3.8.0
+Pillow==10.0.1
+pandas==2.1.1
+numpy==1.26.1
+requests>=2.31.0
+joblib==1.4.2
+
+# --- Machine learning inference (small) ---
+tflite-runtime==2.14.0
+
+scikit-learn==1.3.1
