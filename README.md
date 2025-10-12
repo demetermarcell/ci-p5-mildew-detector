@@ -107,6 +107,14 @@ Model development followed a three-stage experimental process:
 - Within the top 5, Adamax consistently outperformed Adam; notably, the lowest performers used Adam.
 - No other single hyperparameter (dropout rate, kernel size, activation) showed clear, universal dominance beyond the specific winning combinations above.
 
+#### Step 2 Results Conclusion
+- Retrained the top 5 configurations from Step 1 at batch size 32; total runtime 30.3 minutes on a modern workstation.
+- Used the same selection rule as before — validation accuracy (primary) with validation loss as the tie-breaker — and saved the new leaderboard to reports/grid_report_bs32.csv.
+- To finalize selection, we will evaluate the top 3 models on the held-out test set, reporting loss, accuracy, precision, recall, F1, and the confusion matrix for each.
+- The best performer on the test set will be promoted as the final model for deployment.
+
+#### Step 3 Results Conclusion
+
 
 ## Dashboard Design
 - Streamlit App Interface
