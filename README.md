@@ -1,6 +1,8 @@
 # Cherry Powdery Mildew Detector
 
-[LINK]()
+**Bug Fixed, Deployment Succesful, Completed on separate branch**
+
+[LINK](https://cip5-mildew-detector-54c3e8a7e11f.herokuapp.com/)
 
 ## Project Summary
 Cherry Powdery Mildew Detector is a machine learning–based web application designed to help identify powdery mildew infection on cherry leaves using image recognition.
@@ -176,7 +178,7 @@ The Navigation has the following options:
 
 ## Bugs
 - Although a random seed was defined in the notebooks, it was inadvertently omitted from the model’s implementation due to a minor oversight. This issue was identified during the final validation phase. To ensure the best-performing model was deployed, the production version was manually replaced with the previously trained model that achieved superior validation results.
-- Deployment Issue: Deployment to Heroku failed because the compiled slug exceeded Heroku’s 500 MB limit (actual size: 741.7 MB). Multiple attempts were made to reduce the size by converting the model to TensorFlow Lite, but the conversion was unsuccessful. Due to time constraints, deployment could not be completed. A bug has been logged on the project board; the application runs successfully in the local environment.
+- Deployment Issue: Deployment to Heroku failed because the compiled slug exceeded Heroku’s 500 MB limit (actual size: 741.7 MB). Multiple attempts were made to reduce the size by converting the model to TensorFlow Lite, but the conversion was unsuccessful. Due to time constraints, deployment could not be completed. A bug has been logged on the project board; the application runs successfully in the local environment. - **Fixed**
 
 ## Deployment
 - The repository is stored on my personal GitHub account as a public repository.
@@ -190,8 +192,14 @@ The Navigation has the following options:
     - Connect your repository to the Heroku app.
     - On the "Manual deploy" section of the screen, select the correct branch and hit "Deploy Branch"
     - Go to Resources → Eco Dynos and confirm a web dyno is present (from your Procfile command). You should not see any worker dynos for this app.
-    - Resources/ Add-on Services should be empty
+    - Resources/ Add-on Services should be empty.
     - Once the build finishes, click Open app.
+- The following configuration files are included for deployment:
+    - **`.slugignore`** – excludes unnecessary files (datasets, notebooks, large model artifacts) to keep the Heroku slug size below 500 MB.
+    - **`setup.sh`** – creates the Streamlit configuration file (`config.toml`) at runtime and sets server settings for Heroku.
+    - **`runtime.txt`** – specifies the Python version used during deployment (e.g., `python-3.11.9`).
+    - **`Procfile`** – defines the process that Heroku runs on startup (e.g., `web: sh setup.sh && streamlit run app.py`).
+
     
 
 ## Main Data Analysis and Machine Learning Libraries
