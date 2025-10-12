@@ -73,6 +73,9 @@ Average and Variability (v3, Sample size 100)
 ![v1_avg_var_h](outputs/v3/avg_var_healthy.png)
 ![v1_avg_var_i](outputs/v3/avg_var_powdery_mildew.png)
 
+2. Validation of Predictive Capability Hypothesis
+
+We validated this hypothesis using a stratified train/validation/test split with strict folder isolation (no augmentation leakage), early stopping, and best-checkpoint selection on validation F1. The final model was evaluated once on the untouched test set: it achieved 100% accuracy with Precision = 1.00, Recall = 1.00, F1 = 1.00, and a confusion matrix showing zero misclassifications across both classes. These results meet—and exceed—the ≥97% accuracy criterion, demonstrating that a binary CNN trained on labeled cherry leaves can reliably distinguish healthy from infected samples.
 
 ## Rationale & ML Business Case
 
@@ -134,11 +137,28 @@ The accuracy and loss plots clearly demonstrate that the model achieved near-per
 ## Dashboard Design
 - Streamlit App Interface
 ### Navigation
+The Navigation has the following options:
+- Quick Project Summary
+- Leaves Visualizer
+- Mildew Detection
+- Project Hypotesis
+- ML Performance Metrics
 ### Project Summary
+![Project Summary](resources/screenshots/ProjectSummary.png)
+
 ### Leaves Visualizer
-### Cherry Powdery Mildew Detector
-### Project Hypotesis and Validation
+![Leaves Visualizer](resources/screenshots/LeavesVisualizer.png)
+
+### Mildew Detection
+![Mildew Detection — sample 1](resources/screenshots/MildewDetection1.png)
+![Mildew Detection — sample 2](resources/screenshots/MildewDetection2.png)
+
+### Project Hypotesis
+![Project Hypoteses](resources/screenshots/ProjectHypoteses.png)
+
 ### Performance Metrics
+![ML Performance](resources/screenshots/MLPerformance.png)
+
 
 ## CRISP-DM
  Cross-Industry Standard Process for Data Mining
