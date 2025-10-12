@@ -3,23 +3,29 @@
 # For Heroku deployment of Mildew Detector
 # ============================
 
-# --- Data and model artifacts (not needed for runtime) ---
+# --- Data and model artifacts not needed at runtime ---
 inputs/
-outputs/
 reports/
 models/
+outputs/**/models/
+outputs/**/saved_model_export/
+outputs/**/training_logs/
 *.h5
 *.keras
-*.tflite
 *.joblib
 *.pkl
 *.csv
+
+# --- Only keep lightweight .tflite inference models ---
+# Do NOT ignore the tflite directory itself
+# (so keep: outputs/.../tflite/*.tflite)
 
 # --- Jupyter notebooks and experiments ---
 notebooks/
 jupyter_notebooks/
 **/.ipynb_checkpoints/
 *.ipynb
+tools/
 
 # --- Local and environment files ---
 .env
@@ -39,7 +45,7 @@ CI_README.md
 LICENSE
 kaggle.json
 
-# --- Images and plots ---
+# --- Images and plots (only keep small UI assets if needed) ---
 *.png
 *.jpg
 *.jpeg

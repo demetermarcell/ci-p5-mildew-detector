@@ -1,6 +1,10 @@
-# Minimal runtime deps for Streamlit + TF inference on Heroku
+# ============================
+# requirements.txt
+# Minimal runtime deps for Streamlit + TFLite inference
+# ============================
+
 streamlit==1.40.2
-tensorflow==2.16.2
+tflite-runtime==2.14.0
 numpy==1.26.1
 pandas==2.1.1
 Pillow==10.0.1
