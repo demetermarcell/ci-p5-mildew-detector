@@ -93,11 +93,12 @@ To optimize performance, the following hyperparameters were selected:
 - Activation (ReLU vs ELU): While ReLU outputs zero for negative inputs—risking inactive (“dead”) neurons—ELU allows small negative values, preserving gradient flow. This smoother behavior was expected to improve convergence stability and overall model performance compared to ReLU.
 - Optimizer (Adam vs Adamax): evaluated for stability and adaptability to varying gradient scales.
 
-Model development followed a three-stage experimental process:
+Model development followed a four-step experimental process:
 
-- Stage 1: Train all 16 hyperparameter combinations with batch size 16 for rapid iteration.
-- Stage 2: Retrain the top 4 configurations using batch size 32 for refined learning.
-- Stage 3: Consolidate findings and reproduce the best model in a dedicated final notebook for
+- Step 1: Train all 16 hyperparameter combinations with batch size 16 for rapid iteration.
+- Step 2: Retrain the top 5 configurations using batch size 32 for refined learning.
+- Step 3: Test top 3 configurations using test set for final model selection
+- Step 4: Final Validation
 
 #### Step 1 Results Conclusion
 - Trained and validated 16 configurations in 67.4 minutes on a modern workstation.
@@ -114,6 +115,20 @@ Model development followed a three-stage experimental process:
 - The best performer on the test set will be promoted as the final model for deployment.
 
 #### Step 3 Results Conclusion
+- Evaluated the top 3 candidates from Step 2 on the held-out test set and ranked by test accuracy (primary), with F1 and then loss as tie-breakers.
+- Winner (promoted to deployment): step_2_bs32_k3_do0.3_act-elu_opt-adamax_seed27
+Config: bs=32, kernel=3, dropout=0.3, activation=elu, optimizer=adamax.
+Test performance: accuracy = 1.0000, precision = 1.0000, recall = 1.0000, F1 = 1.0000, loss = 0.00310.
+- Runner-ups were close but below perfect accuracy (0.9988 and 0.9964); no tie-breakers were required.
+- All deployment artifacts for the winner are recorded (model file, confusion matrix image, and classification report) and ready for packaging into the Streamlit app.
+
+#### Step 4 Final Validation
+The accuracy and loss plots clearly demonstrate that the model achieved near-perfect performance, showing minimal loss and flawless convergence throughout training. This is further confirmed by the test set evaluation and the confusion matrix, both indicating 100% accuracy — evidencing that the model successfully learned to distinguish between healthy and infected leaves with complete precision.
+![training_accuracy](outputs/prod/model_training_acc.png)
+
+![training_losses](outputs/prod/model_training_losses.png)
+
+![test_confusion_matrix](outputs/prod/confusion_matrix_test.png)
 
 
 ## Dashboard Design
@@ -140,7 +155,7 @@ Link to project board
 
 
 ## Bugs
-
+- Although a random seed was defined in the notebooks, it was inadvertently omitted from the model’s implementation due to a minor oversight. This issue was identified during the final validation phase. To ensure the best-performing model was deployed, the production version was manually replaced with the previously trained model that achieved superior validation results.
 
 ## Deployment
 
