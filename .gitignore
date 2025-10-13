@@ -16,5 +16,5 @@ kaggle.json
 
 # Ignore train and validation folders:
 /inputs/mildew-dataset/cherry-leaves/train
-/inputs/mildew-dataset/cherry-leaves/validation
+
 

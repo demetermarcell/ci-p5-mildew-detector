@@ -35,6 +35,7 @@ __pycache__/
 venv/
 .venv/
 mildew-env/
+*.DS_Store
 
 
 ########## DEV / DOCS ##########
