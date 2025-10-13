@@ -1,64 +1,47 @@
 # ============================
-# .slugignore
-# For Heroku deployment of Mildew Detector
+# .slugignore — Mildew Detector (Heroku)
+# Keep only what's required for runtime (model, pkl, test images, UI)
 # ============================
 
-# --- Data and model artifacts not needed at runtime ---
-inputs/
-reports/
-models/
-outputs/**/models/
-outputs/**/saved_model_export/
-outputs/**/training_logs/
-*.h5
+########## DATASETS ##########
+# Keep only the test subset; exclude training & validation data
+inputs/mildew-dataset/cherry-leaves/train/**
+inputs/mildew-dataset/cherry-leaves/validation/**
+# Do NOT ignore test images
+!inputs/mildew-dataset/cherry-leaves/test/**
+
+########## OUTPUTS ##########
+# Keep everything except specific heavy subfolders
+outputs/step1/reports/**
+outputs/step2/reports/**
+outputs/step3/reports/**
+# Drop model formats not needed at runtime
 *.keras
-*.joblib
-*.pkl
-*.csv
 
-# --- Only keep lightweight .tflite inference models ---
-# Do NOT ignore the tflite directory itself
-# (so keep: outputs/.../tflite/*.tflite)
+########## FILE TYPES ##########
+# Drop Markdown docs to reduce slug size
+*.md
 
-# --- Jupyter notebooks and experiments ---
-notebooks/
-jupyter_notebooks/
-**/.ipynb_checkpoints/
+########## NOTEBOOKS ##########
+jupyter_notebooks/**
+notebooks/**
 *.ipynb
-tools/
 
-# --- Local and environment files ---
+########## LOCAL ENV / CACHE ##########
 .env
 *.pyc
 __pycache__/
 venv/
 .venv/
 mildew-env/
-*.log
-*.DS_Store
 
-# --- Development and docs ---
-tests/
-docs/
-README.md
-CI_README.md
-LICENSE
+
+########## DEV / DOCS ##########
+.devcontainer/**
+tools/**
 kaggle.json
 
-# --- Images and plots (only keep small UI assets if needed) ---
-*.png
-*.jpg
-*.jpeg
-*.gif
 
-# --- Git and IDE metadata ---
+########## GIT METADATA ##########
 .git/
 .gitignore
-.idea/
-.vscode/
-
-# --- Other unnecessary files ---
-*.zip
-*.tar
-*.gz
-*.bak
