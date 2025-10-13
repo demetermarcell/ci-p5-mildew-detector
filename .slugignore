@@ -4,8 +4,11 @@
 # ============================
 
 ########## DATASETS ##########
-# Keep only the test subset; exclude training data
+# Keep only the test subset; exclude training & test data
 inputs/mildew-dataset/cherry-leaves/train/**
+inputs/mildew-dataset/cherry-leaves/test/**
+# Do NOT ignore test images for leaves visualizer
+!inputs/mildew-dataset/cherry-leaves/validation/**
 
 
 ########## OUTPUTS ##########
