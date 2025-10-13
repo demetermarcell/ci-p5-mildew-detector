@@ -4,11 +4,9 @@
 # ============================
 
 ########## DATASETS ##########
-# Keep only the test subset; exclude training & validation data
+# Keep only the test subset; exclude training data
 inputs/mildew-dataset/cherry-leaves/train/**
-inputs/mildew-dataset/cherry-leaves/validation/**
-# Do NOT ignore test images
-!inputs/mildew-dataset/cherry-leaves/test/**
+
 
 ########## OUTPUTS ##########
 # Keep everything except specific heavy subfolders
